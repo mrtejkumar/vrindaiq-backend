@@ -1,0 +1,1 @@
+will need to add validations on phone no (incase of empty and missing phone no it throws useless msg) and username (if username is already used it not showing anything in console logging the 400 error)
