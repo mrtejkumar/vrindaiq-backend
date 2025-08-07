@@ -4,7 +4,7 @@ from auth.dependencies import get_current_user
 from .models import News
 from .schemas import NewsCreate, News
 from .ai_utils import analyze_sentiment
-from database import get_db
+from app.database import get_db
 from auth.models import User
 
 router = APIRouter()

@@ -1,1 +1,33 @@
 will need to add validations on phone no (incase of empty and missing phone no it throws useless msg) and username (if username is already used it not showing anything in console logging the 400 error)
+
+vrindaiq-backend/
+├── app/
+│   ├── main.py                    ← Entry point
+│   ├── database.py
+│   ├── config.py
+│   ├── core/                      ← Shared logic / utilities
+│   │   ├── security.py
+│   │   └── constants.py
+│   ├── auth/                      ← Auth module
+│   │   ├── routers.py
+│   │   ├── models.py
+│   │   ├── schemas.py
+│   │   └── dependencies.py
+│   ├── dashboard/                ← New feature module (example)
+│   │   ├── routers.py
+│   │   ├── models.py
+│   │   └── schemas.py
+│   ├── analysis/                 ← Feature module
+│   │   ├── routers.py
+│   │   ├── models.py
+│   │   └── schemas.py
+│   ├── websockets/
+│   │   ├── routers.py
+│   │   └── stocks_socket.py
+│   ├── third_party/
+│   │   └── angelone/
+│   │       └── smart_api.py
+│   └── __init__.py
+├── requirements.txt
+├── .env
+└── todo.txt

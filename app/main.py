@@ -1,17 +1,17 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from auth.routers import router as auth_router
-# from screener.routers import router as screener_router
-# from recommendation.routers import router as recommendation_router
-# from portfolio.routers import router as portfolio_router
-# from analysis.routers import router as analysis_router
-# from websockets.routers import router as ws_router
+from app.auth.routers import router as auth_router
+# from app.screener.routers import router as screener_router
+# from app.recommendation.routers import router as recommendation_router
+# from app.portfolio.routers import router as portfolio_router
+# from app.analysis.routers import router as analysis_router
+# from app.websockets.routers import router as ws_router
 
 import uvicorn
 import os
 from dotenv import load_dotenv
 
-from database import Base, engine
+from app.database import Base, engine
 
 # ------------------------------
 # ✅ Load environment variables
@@ -37,7 +37,6 @@ app = FastAPI(title="VrindaIQ Backend")
 # ------------------------------
 # ✅ Enable CORS so frontend can call API
 # ------------------------------
-# Automatically allow both localhost and 127.0.0.1 for the given port
 origins = [
     f"http://{FRONTEND_HOST}:{FRONTEND_PORT}",
     f"http://127.0.0.1:{FRONTEND_PORT}",
@@ -49,10 +48,10 @@ if os.getenv("CORS_ALLOW_ALL", "false").lower() == "true":
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,         # Or ["*"] to allow all origins (not recommended for production)
+    allow_origins=origins,
     allow_credentials=True,
-    allow_methods=["*"],           # Allow all HTTP methods: GET, POST, PUT, DELETE, OPTIONS
-    allow_headers=["*"],           # Allow all headers
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 # ------------------------------
@@ -69,4 +68,4 @@ app.include_router(auth_router, prefix="/auth", tags=["auth"])
 # ✅ Run app
 # ------------------------------
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run("app.main:app", host="0.0.0.0", port=8000, reload=True)

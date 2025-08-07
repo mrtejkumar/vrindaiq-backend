@@ -5,7 +5,7 @@ from .models import User
 from .schemas import UserCreate, Token
 from .dependencies import get_password_hash, verify_password, create_access_token, get_current_user
 
-from database import get_db
+from app.database import get_db
 # // Remove: from .schemas import User  # Add this if not already imported
 
 router = APIRouter()
