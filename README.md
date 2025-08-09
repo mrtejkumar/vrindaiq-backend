@@ -6,69 +6,84 @@ FastAPI-based backend service for the **VrindaIQ** platform — an intelligent t
 
 ## ✨ Features
 
-- ✅ **Modular FastAPI Architecture**
-- 🔐 **JWT Authentication**
-- 📊 **AI-driven Stock Analysis**
-- 🧠 **Trading Recommendations (Coming Soon)**
-- 📡 **Real-time WebSocket Updates**
-- 🔗 **Angel One SmartAPI Integration**
-- 🌐 **Secure CORS Middleware**
-- 🛠️ **Environment-Based Config with `.env`**
+- **Modular FastAPI Architecture**
+- **JWT Authentication**
+- **AI-driven Stock Analysis**
+- **Trading Recommendations (Coming Soon)**
+- **Real-time WebSocket Updates**
+- **Angel One SmartAPI Integration**
+- **Secure CORS Middleware**
+- **Environment-Based Config with `.env`**
 
 ---
 
 ## 📁 Project Structure
 
+```text
 vrindaiq-backend/
 ├── app/
-│ ├── main.py # FastAPI app entry point
-│ ├── database.py # SQLAlchemy setup
-│ ├── config.py # .env-based configuration
-│ ├── core/ # Auth & constants
-│ ├── common/ # Shared utilities
-│ ├── auth/ # Auth (JWT, models, routes)
-│ ├── analysis/ # AI utils, analysis routes
-│ ├── websockets/ # Real-time connections
-│ └── third_party/
-│ └── angelone/ # Angel One integration
-├── angelone/ # Raw token storage, SDKs etc.
-├── env/
-│ └── .env # Local environment variables
-├── requirements.txt # Python dependencies
-└── README.md # You're reading it!
-
-yaml
-Copy
-Edit
+│   ├── main.py                    ← Entry point
+│   ├── database.py
+│   ├── config.py
+│   ├── core/                      ← Shared logic / utilities
+│   │   ├── security.py
+│   │   └── constants.py
+│   ├── auth/                      ← Auth module
+│   │   ├── routers.py
+│   │   ├── models.py
+│   │   ├── schemas.py
+│   │   └── dependencies.py
+│   ├── dashboard/                ← New feature module (example)
+│   │   ├── routers.py
+│   │   ├── models.py
+│   │   └── schemas.py
+│   ├── analysis/                 ← Feature module
+│   │   ├── routers.py
+│   │   ├── models.py
+│   │   └── schemas.py
+│   ├── websockets/
+│   │   ├── routers.py
+│   │   └── stocks_socket.py
+│   ├── third_party/
+│   │   └── angelone/
+│   │       └── smart_api.py
+│   └── __init__.py
+├── requirements.txt
+├── .env
+└── todo.txt
+```
 
 ---
 
 ## 🧭 Step-by-Step Setup Guide
 
-### ✅ 1. Clone the Repository
+### 1. Clone the Repository
 
 ```bash
 git clone https://github.com/yourusername/vrindaiq-backend.git
 cd vrindaiq-backend
-✅ 2. Create & Activate Virtual Environment
-bash
-Copy
-Edit
+```
+
+### 2. Create & Activate Virtual Environment
+
+```bash
 python -m venv env
 # Activate:
 source env/bin/activate         # macOS/Linux
 env\Scripts\activate            # Windows
-✅ 3. Install Python Dependencies
-bash
-Copy
-Edit
-pip install -r requirements.txt
-✅ 4. Create a .env File
-Create .env inside env/ or project root:
+```
 
-ini
-Copy
-Edit
+### 3. Install Python Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### 4. Create a .env File
+
+Create `.env` inside `env/` or project root:
+
+```ini
 # .env
 
 # CORS / Frontend
@@ -83,53 +98,66 @@ ACCESS_TOKEN_EXPIRE_MINUTES=30
 
 # Database
 DATABASE_URL=sqlite:///./vrindaiq.db  # Change if using PostgreSQL
-✅ 5. Run the Backend Server
-bash
-Copy
-Edit
+```
+
+### 5. Run the Backend Server
+
+```bash
 uvicorn app.main:app --reload
-API: http://127.0.0.1:8000
+```
 
-Swagger Docs: http://127.0.0.1:8000/docs
+- API: [http://127.0.0.1:8000](http://127.0.0.1:8000)
+- Swagger Docs: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
 
-🧪 Development Tips
-✅ Use .env to switch between development and production.
+---
 
-🧠 Any AI utilities should go inside analysis/ai_utils.py.
+## 🧪 Development Tips
 
-🔐 JWT auth-related logic lives in core/security.py.
+- Use `.env` to switch between development and production.
+- Any AI utilities should go inside `analysis/ai_utils.py`.
+- JWT auth-related logic lives in `core/security.py`.
+- Add new routers in `main.py` using:
 
-⚙️ Add new routers in main.py using:
-
-python
-Copy
-Edit
+```python
 from app.newmodule.api import router as newmodule_router
 app.include_router(newmodule_router, prefix="/newmodule", tags=["newmodule"])
-🗺️ Planned / Future Additions
-Feature	Status
-✅ Authentication	Done
-🧠 AI Recommendation Engine	Coming Soon
-📈 Screener Module	In Progress
-🧳 Portfolio Tracker	Planned
-🧪 Unit Tests	Planned
-🔄 Token Refresh	Planned
-☁️ Docker Support	Planned
-📦 PostgreSQL Option	Optional
+```
 
-🤝 Contributing
+---
+
+## 🗺️ Planned / Future Additions
+
+| Feature                  | Status         |
+|--------------------------|---------------|
+| Authentication           | ✅ Done        |
+| AI Recommendation Engine | 🧠 Coming Soon |
+| Screener Module          | 📈 In Progress |
+| Portfolio Tracker        | 🧳 Planned     |
+| Unit Tests               | 🧪 Planned     |
+| Token Refresh            | 🔄 Planned     |
+| Docker Support           | ☁️ Planned     |
+| PostgreSQL Option        | 📦 Optional    |
+
+---
+
+## 🤝 Contributing
+
 Pull requests are welcome. Please follow the structure and naming conventions.
 
 To add a new module:
 
-Create a new folder under app/
+1. Create a new folder under `app/`
+2. Add `models.py`, `schemas.py`, `api.py`, `utils.py` (as needed)
+3. Register its router in `main.py`
 
-Add models.py, schemas.py, api.py, utils.py (as needed)
+---
 
-Register its router in main.py
+## 🛡️ License
 
-🛡️ License
 MIT License © 2025 VrindaIQ
 
-📬 Contact
-For bugs, feature requests, or contributions, feel free to reach out via GitHub or your-email@example.com
+---
+
+## 📬 Contact
+
+For bugs, feature requests, or contributions, feel free to reach out via [GitHub](https://github.com/yourusername/vrindaiq-backend) or your-email@example.com
